@@ -1,4 +1,4 @@
-import 'package:entregar/screens/initial_screen.dart';
+import 'package:alura/screens/form_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,14 +11,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'AluraQuest',
+      title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const InitialScreen(),
+      home: const FormScreen(),
     );
   }
 }
-
-
 
