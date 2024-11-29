@@ -7,14 +7,23 @@ class Task extends StatefulWidget {
   final int difficulty;
   final String foto;
 
-  const Task(this.titulo, this.difficulty, this.foto, {super.key});
+  Task(this.titulo, this.difficulty, this.foto, {super.key});
 
+  int nivel = 0;
   @override
   State<Task> createState() => _TaskState();
 }
 
 class _TaskState extends State<Task> {
-  int nivel = 0;
+
+  bool assetOrNetwork() {
+    if(widget.foto.contains('http')) {
+      return false;
+    }else {
+      return true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -48,10 +57,11 @@ class _TaskState extends State<Task> {
                     height: 100, width: 72,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(4),
-                      child: Image.asset(
-                        widget.foto,
-                        fit: BoxFit.cover,
-                      ),
+                      child: assetOrNetwork()?
+                            Image.asset(widget.foto, fit: BoxFit.cover,)
+                            :
+                            Image.network(widget.foto, fit: BoxFit.cover,),
+
                     ),
                   ),
                   Column(
@@ -70,7 +80,7 @@ class _TaskState extends State<Task> {
                     child: ElevatedButton(onPressed: () {
 
                       setState(() {
-                        nivel++;
+                        widget.nivel++;
                       });
                     },
                         style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
@@ -95,13 +105,13 @@ class _TaskState extends State<Task> {
                       child:
                       LinearProgressIndicator(
                         color: Colors.white,
-                        value: widget.difficulty>0? (nivel/widget.difficulty)/10 : 1,
+                        value: widget.difficulty>0? (widget.nivel/widget.difficulty)/10 : 1,
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text('Nível: $nivel', style: const TextStyle(fontSize: 18, color: Colors.white),),
+                    child: Text('Nível: ${widget.nivel}', style: const TextStyle(fontSize: 18, color: Colors.white),),
                   ),
                 ],
               ),

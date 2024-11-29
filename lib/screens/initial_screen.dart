@@ -1,4 +1,6 @@
 import 'package:alura/components/task.dart';
+import 'package:alura/data/task_inherited.dart';
+import 'package:alura/screens/form_screen.dart';
 import 'package:flutter/material.dart';
 
 class InitialScreen extends StatefulWidget {
@@ -10,7 +12,6 @@ class InitialScreen extends StatefulWidget {
 }
 
 class _InitialScreenState extends State<InitialScreen> {
-  bool opacidade = true;
 
   @override
   Widget build(BuildContext context) {
@@ -21,30 +22,16 @@ class _InitialScreenState extends State<InitialScreen> {
           title: const Text('Nanatsu no Taizai', style: TextStyle(color: Colors.white),),
           backgroundColor: Colors.blue, // Cor da sua escolha
         ),
-        body: AnimatedOpacity(
-          opacity: opacidade?1:0,
-          duration: const Duration(milliseconds: 1000),
-          child: ListView(
-            children: const [
-              Task('Diane', 3, 'assets/images/diane.jpg'),
-              Task('King', 4, 'assets/images/king.png'),
-              Task('Ban', 4, 'assets/images/ban.png'),
-              Task('Meliodas', 5, 'assets/images/meliodas.png'),
-              Task('Hawk', 1, 'assets/images/hawk.png'),
-              Task('Gilthunder', 2, 'assets/images/gilthunder.png'),
-              Task('Elizabeth', 2, 'assets/images/elizabeth.png'),
-              SizedBox(height: 80,),
-            ],
-          ),
+        body: ListView(
+          children: TaskInherited.of(context).taskList,
+          padding: EdgeInsets.only(top: 8, bottom: 70),
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.lightBlue,
           onPressed: () {
-            setState(() {
-              opacidade = !opacidade;
-            });
+            Navigator.push(context, MaterialPageRoute(builder: (contextNew) => FormScreen(taskContext: context,)));
           },
-          child: const Icon(Icons.remove_red_eye),
+          child: const Icon(Icons.add),
         ),
       ),
     );
