@@ -1,3 +1,4 @@
+import 'package:alura/data/task_dao.dart';
 import 'package:flutter/material.dart';
 
 import 'difficulty.dart';
@@ -77,21 +78,26 @@ class _TaskState extends State<Task> {
                   SizedBox(
                     height: 65,
                     width: 65,
-                    child: ElevatedButton(onPressed: () {
+                    child: ElevatedButton(
+                      onLongPress: () {
+                        TaskDao().delete(widget.titulo);
+                      },
 
-                      setState(() {
-                        widget.nivel++;
-                      });
-                    },
-                        style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                        child: const Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Icon(Icons.arrow_drop_up, color: Colors.white,),
-                            Text("UP", style: TextStyle(fontSize:11, color: Colors.white),),
-                          ],
-                        )),
+                      onPressed: () {
+
+                        setState(() {
+                          widget.nivel++;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                      child: const Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Icon(Icons.arrow_drop_up, color: Colors.white,),
+                          Text("UP", style: TextStyle(fontSize:11, color: Colors.white),),
+                        ],
+                      )),
                   )
                 ],
               ),),
