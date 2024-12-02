@@ -1,3 +1,5 @@
+import 'package:alura/components/task.dart';
+import 'package:alura/data/task_dao.dart';
 import 'package:alura/data/task_inherited.dart';
 import 'package:flutter/material.dart';
 
@@ -159,7 +161,7 @@ class _FormScreenState extends State<FormScreen> {
                           // print(nameController.text);
                           // print(int.parse(difficultyController.text));
                           // print(imageController.text);
-                          TaskInherited.of(widget.taskContext).newTask(nameController.text, int.parse(difficultyController.text), imageController.text);
+                          TaskDao().save(Task(nameController.text, int.parse(difficultyController.text), imageController.text));
                           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Salvando nova tarefa.'))
                           );
                           Navigator.pop(context);
